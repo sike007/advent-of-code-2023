@@ -1,5 +1,3 @@
-import java.lang.StringBuilder
-
 fun main() {
     val charMap = mapOf(
         'S' to listOf(Pair(-1, 0), Pair(1, 0), Pair(0, -1), Pair(0, 1)),
@@ -59,15 +57,13 @@ fun main() {
             vis = Array(input.size) { Array(input[0].length) { false } }
             ans1 = maxOf(ans1, solve(Pair(x1, y1), st, 1))
             if (ans1 <= 0) continue
-            val replaceS = '-'      // added manually :)
+            val replaceS = "-"      // added manually :)
             val mutableInput = input.toMutableList()
-            val sb = StringBuilder(mutableInput[st.first])
-            sb.setCharAt(st.second, replaceS)
-            mutableInput[st.first] = sb.toString()
+            mutableInput[st.first].replaceRange(st.second,st.second+1,replaceS)
             for (i in mutableInput.indices) {
-                val sbr = StringBuilder(mutableInput[i])
-                for (j in mutableInput[i].indices) if (!vis[i][j]) sbr.setCharAt(j, '.')
-                mutableInput[i] = sbr.toString()
+                for (j in mutableInput[i].indices)
+                    if (!vis[i][j])
+                        mutableInput[i].replaceRange(j,j+1,".")
             }
             for (str in mutableInput) {
                 var insideTop = false
